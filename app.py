@@ -1,3 +1,5 @@
+from flask import Flask
+from redis import Redis
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse
 import joblib
@@ -7,13 +9,13 @@ import os
 from keras.preprocessing import image
 from keras.applications.vgg19 import VGG19
 from keras.applications.vgg19 import preprocess_input
-import cv2
+#import cv2
 import json
 from flask_cors import CORS
 from PIL import Image
 from io import BytesIO
 import base64
-IRIS_MODEL2 = joblib.load('SVM_multi_final.mdl')
+
 
 
 APP = Flask(__name__)
@@ -59,8 +61,7 @@ def returnascii():
         people = [{'prediction': result}]
         
         return jsonify(people[0]) 
-       
-       
-    
 
-app.run()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
