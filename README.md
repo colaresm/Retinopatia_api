@@ -1,4 +1,4 @@
-# Retinopatia_api
+# Retinopatia api
 
 ## Executando API
 
