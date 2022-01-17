@@ -1,0 +1,16 @@
+flask
+flask_restful
+numpy
+flask-cors
+sklearn
+joblib
+opencv-python
+Keras
+Keras-Applications
+Keras-Preprocessing
+tensorboard
+tensorflow
+tensorflow-estimator
+scipy
+scikit-image
+redis
