@@ -1,7 +1,7 @@
 version: '2'
 services:
+    container_name: retinopatia-api
     web:
-    	container_name: retinopatia-api 
         build: .
         ports:
             - "5000:5000"
