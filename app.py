@@ -18,12 +18,60 @@ from io import BytesIO
 import base64
 import urllib.request
 import zipfile
+import cv2
+from tensorflow.keras.models import load_model
 
 
 APP = Flask(__name__)
 API = Api(APP)
 app = Flask("_name_")
 CORS(app)
+
+def predict_image():
+
+ 
+  model = load_model('multiclass_model.h5')
+ 
+  img_width, img_height = 128, 128
+
+  img = cv2.imread("reiceved_image.png")
+  img = cv2.resize(img, (img_width, img_height))
+  img = img / 255.0   
+  img = np.expand_dims(img, axis=0)  
+
+  prediction = model.predict(img)
+
+  predicted_labels = np.argmax(prediction, axis=1)
+
+  unique_labels=['absence', 'grave', 'leve', 'moderado']
+
+  predicted_class_names = [unique_labels[label] for label in predicted_labels]
+
+  return predicted_class_names
+
+
+@app.route('/ret2', methods=['POST'])
+def predict():
+    try:
+        data = request.json
+        imageInBase64 = data.get('nome')   
+        type_prediction = data.get('tipopredicao')
+        
+        imageInBase64=imageInBase64.replace(" ","+")
+        imageInBase64=imageInBase64.replace("data:image/png;base64,","")
+        imageInBase64=str.encode(imageInBase64)
+
+        image_result = open('reiceved_image.png', 'wb') 
+        image_result.write(base64.b64decode(imageInBase64))
+       
+
+        dados = {'type_prediction':type_prediction,'prediction': predict_image()[0]}
+       
+        return jsonify(dados)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 
 @app.route('/ret', methods = ['GET'])
 def returnascii():
