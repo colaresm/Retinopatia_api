@@ -2,8 +2,6 @@ flask
 flask_restful
 numpy
 flask-cors
-sklearn
-joblib
 Keras==3.4.1
 Keras-Applications
 Keras-Preprocessing
