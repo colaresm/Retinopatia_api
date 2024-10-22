@@ -47,7 +47,7 @@ def get_model(type_prediction):
 def get_labels_for_response(type_prediction):
     unique_labels=[]
     if type_prediction=="validation":
-        unique_labels=['eye', 'randon']
+        unique_labels=['eye', 'random']
     else:
         unique_labels=['absence', 'grave', 'leve', 'moderado']
     return unique_labels
@@ -58,6 +58,6 @@ def adjust_response_for_multiclass(type_prediction,response):
     if (type_prediction=="multiclass" or type_prediction=="binary" ) and response=="absence":
         return "saudável"
     if type_prediction=="binary":
-        print("aqio")
         return "presença de retinopatia diabética" 
-        
+    if type_prediction=="multiclass":
+        return response        

@@ -18,7 +18,7 @@ def predict():
         data = request.json
         image_in_base64 = data.get('nome')   
         type_prediction = data.get('tipopredicao')
-        
+        print(type_prediction)
         image_in_base64=image_in_base64.replace(" ","+")
         image_in_base64=image_in_base64.replace("data:image/png;base64,","")
         image_in_base64=str.encode(image_in_base64)
@@ -33,10 +33,10 @@ def predict():
         if validation=="eye":
               result=predict_image(type_prediction)
         else:
-              result=="randon"  
+              result=="random"  
 
         data = {'type_prediction':type_prediction,'prediction': result}
-       
+        print(result)
         return jsonify(data)
 
     except Exception as e:
